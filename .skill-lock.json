@@ -1,0 +1,218 @@
+{
+  "version": 3,
+  "skills": {
+    "uv-package-manager": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/python-development/skills/uv-package-manager/SKILL.md",
+      "skillFolderHash": "916b782e8fa418c8a7ea5b39d7371ba9de5b8009",
+      "installedAt": "2026-02-16T08:40:22.040Z",
+      "updatedAt": "2026-02-16T08:40:22.040Z"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/skills.git",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "skillFolderHash": "c2f31172b6f256272305a5e6e7228b258446899f",
+      "installedAt": "2026-02-16T08:40:28.884Z",
+      "updatedAt": "2026-02-16T08:40:28.884Z"
+    },
+    "code-review-expert": {
+      "source": "sanyuan0704/code-review-expert",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/sanyuan0704/code-review-expert.git",
+      "skillPath": "SKILL.md",
+      "skillFolderHash": "9d590851f17901eead978ac24fd16e3827fb0e29",
+      "installedAt": "2026-02-16T08:40:58.887Z",
+      "updatedAt": "2026-02-16T08:40:58.887Z"
+    },
+    "git-commit": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/github/awesome-copilot.git",
+      "skillPath": "skills/git-commit/SKILL.md",
+      "skillFolderHash": "883a6a7466f55a9cd9f22cf1cce2d9333fc9b998",
+      "installedAt": "2026-02-16T08:41:30.664Z",
+      "updatedAt": "2026-02-16T08:41:30.664Z"
+    },
+    "python-design-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/python-development/skills/python-design-patterns/SKILL.md",
+      "skillFolderHash": "e2ce27f3e5cbb20bf959ab382c76d50e5d76a444",
+      "installedAt": "2026-02-16T08:42:05.577Z",
+      "updatedAt": "2026-02-16T08:42:05.577Z"
+    },
+    "using-git-worktrees": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/obra/superpowers.git",
+      "skillPath": "skills/using-git-worktrees/SKILL.md",
+      "skillFolderHash": "a5b3f5965f321175a7f07dcadff0bb79adb9e9f7",
+      "installedAt": "2026-02-16T08:42:22.284Z",
+      "updatedAt": "2026-02-16T08:42:22.284Z"
+    },
+    "python-performance-optimization": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/python-development/skills/python-performance-optimization/SKILL.md",
+      "skillFolderHash": "ea26a709fa185e46b567c87f9206a4cf6346eeaf",
+      "installedAt": "2026-02-16T08:42:52.709Z",
+      "updatedAt": "2026-02-16T08:42:52.709Z"
+    },
+    "docker-expert": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/sickn33/antigravity-awesome-skills.git",
+      "skillPath": "skills/docker-expert/SKILL.md",
+      "skillFolderHash": "45853e487ac0d45f8cded5d33ac97fa34d2f3c0a",
+      "installedAt": "2026-02-16T08:43:21.579Z",
+      "updatedAt": "2026-02-16T08:43:21.579Z"
+    },
+    "Skill Development": {
+      "source": "anthropics/claude-code",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/claude-code.git",
+      "skillPath": "plugins/plugin-dev/skills/skill-development/SKILL.md",
+      "skillFolderHash": "3dd57083301fd1ba1a4e04967c6fc055c6d740eb",
+      "installedAt": "2026-02-16T08:45:02.412Z",
+      "updatedAt": "2026-02-16T08:45:02.412Z"
+    },
+    "python-configuration": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/python-development/skills/python-configuration/SKILL.md",
+      "skillFolderHash": "cbdb6fd72a93b47e677909e9a2fb07cdc16b24f8",
+      "installedAt": "2026-02-16T08:46:16.631Z",
+      "updatedAt": "2026-02-16T08:46:16.631Z"
+    },
+    "mkdocs": {
+      "source": "vamseeachanta/workspace-hub",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vamseeachanta/workspace-hub.git",
+      "skillPath": ".claude/skills/_internal/documentation/mkdocs/SKILL.md",
+      "skillFolderHash": "2593b83eea372d6b55ed3e1a822a5cd42478a482",
+      "installedAt": "2026-02-16T08:46:47.825Z",
+      "updatedAt": "2026-02-16T08:46:47.825Z"
+    },
+    "marimo-notebook": {
+      "source": "marimo-team/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/marimo-team/skills.git",
+      "skillPath": "skills/marimo-notebook/SKILL.md",
+      "skillFolderHash": "734f096b07c950d161596a025d98ad5b9b485171",
+      "installedAt": "2026-02-16T08:47:58.132Z",
+      "updatedAt": "2026-02-16T08:47:58.132Z"
+    },
+    "skill-creator": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/skills.git",
+      "skillPath": "skills/skill-creator/SKILL.md",
+      "skillFolderHash": "3cf9a8db32597ba3e24b584a3d696f4e11c7d7b6",
+      "pluginName": "example-skills",
+      "installedAt": "2026-02-16T08:48:41.127Z",
+      "updatedAt": "2026-05-02T21:58:07.437Z"
+    },
+    "python-testing-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/python-development/skills/python-testing-patterns/SKILL.md",
+      "skillFolderHash": "79ea3b35b9b8bb7dd47b566fd085ec45f8a6efe2",
+      "installedAt": "2026-02-16T08:49:41.367Z",
+      "updatedAt": "2026-02-16T08:49:41.367Z"
+    },
+    "stress-testing": {
+      "source": "petekp/claude-code-setup",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/petekp/claude-code-setup.git",
+      "skillPath": "skills/stress-testing/SKILL.md",
+      "skillFolderHash": "266a895eae010e915f8a7e95ce2d7573b4749952",
+      "installedAt": "2026-02-16T08:51:32.259Z",
+      "updatedAt": "2026-02-16T08:51:32.259Z"
+    },
+    "code-comments": {
+      "source": "petekp/claude-code-setup",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/petekp/claude-code-setup.git",
+      "skillPath": "skills/code-comments/SKILL.md",
+      "skillFolderHash": "ccb02bb96e6109fe9c73e08e6a519b100c83f65c",
+      "installedAt": "2026-02-16T08:51:43.498Z",
+      "updatedAt": "2026-02-16T08:51:43.498Z"
+    },
+    "caveman": {
+      "source": "juliusbrussee/caveman",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/juliusbrussee/caveman.git",
+      "skillPath": "caveman/SKILL.md",
+      "skillFolderHash": "f524c391d466fe35e0bdbe9707854fcb2be52b26",
+      "installedAt": "2026-05-02T18:16:44.910Z",
+      "updatedAt": "2026-05-02T18:16:44.910Z"
+    },
+    "requesting-code-review": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/obra/superpowers.git",
+      "skillPath": "skills/requesting-code-review/SKILL.md",
+      "skillFolderHash": "ed265b1a03114cc400d5524afc5c961a4aa9ea8b",
+      "installedAt": "2026-05-02T18:17:46.480Z",
+      "updatedAt": "2026-05-02T18:17:46.480Z"
+    },
+    "github-actions-docs": {
+      "source": "xixu-me/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/xixu-me/skills.git",
+      "skillPath": "skills/github-actions-docs/SKILL.md",
+      "skillFolderHash": "518c85da555f91c346813aa5bb3cc62f9db8bfb3",
+      "installedAt": "2026-05-02T21:33:06.372Z",
+      "updatedAt": "2026-05-02T21:33:40.526Z"
+    },
+    "web-search": {
+      "source": "infsh-skills/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/infsh-skills/skills.git",
+      "skillPath": "tools/llm/web-search/SKILL.md",
+      "skillFolderHash": "07031dc03b8042d7b050d7b6b4d9ece46e1f6136",
+      "installedAt": "2026-05-02T21:34:17.436Z",
+      "updatedAt": "2026-05-02T21:34:17.436Z"
+    },
+    "zoom-out": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/engineering/zoom-out/SKILL.md",
+      "skillFolderHash": "6ecebabdea814d12888f56a611da7bf182b5fb26",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-05-02T21:34:36.078Z",
+      "updatedAt": "2026-05-02T21:34:36.078Z"
+    },
+    "simple": {
+      "source": "roin-orca/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/roin-orca/skills.git",
+      "skillPath": "skills/simple/SKILL.md",
+      "skillFolderHash": "707c9dfc2913276a114d50eef22a190aa9dca494",
+      "installedAt": "2026-05-02T21:57:38.568Z",
+      "updatedAt": "2026-05-02T21:57:38.568Z"
+    },
+    "doc-coauthoring": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/skills.git",
+      "skillPath": "skills/doc-coauthoring/SKILL.md",
+      "skillFolderHash": "d9df960e61fe2bafe9183e37de6f9f6b73b74087",
+      "pluginName": "example-skills",
+      "installedAt": "2026-05-02T21:59:54.829Z",
+      "updatedAt": "2026-05-02T21:59:54.829Z"
+    }
+  },
+  "dismissed": {
+    "findSkillsPrompt": true
+  }
+}
