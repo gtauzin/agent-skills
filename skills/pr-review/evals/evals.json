@@ -1,0 +1,29 @@
+{
+  "skill_name": "pr-review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "review my PR before I push, I changed the smoke submit flow and the CLI on this branch",
+      "expected_output": "Runs the diff manifest against main, launches the lens workflow scoped to the changed files, presents a severity-ordered verified report in chat, and offers fix options without editing anything.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "/pr-review --report",
+      "expected_output": "Same review flow, plus the report written to reviews/<date>-pr-review-<branch-slug>.md with branch, base, merge-base, and HEAD sha in the header.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "do a thorough code review of the current changes and fix anything serious",
+      "expected_output": "Treats the request as /pr-review --fix: runs the review, presents the report, then applies only the surviving high and medium findings and summarizes the edits.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "review the diff (run this on a checkout sitting on main with a clean working tree)",
+      "expected_output": "Detects the on-main edge case (HEAD is main, no branch diff), explains it, asks the user for a base ref or commit range, and stops without launching any workflow.",
+      "files": []
+    }
+  ]
+}
