@@ -38,7 +38,10 @@ from pathlib import Path
 try:
     import tomllib
 except ModuleNotFoundError:  # Python < 3.11
-    tomllib = None
+    try:
+        import tomli as tomllib
+    except ModuleNotFoundError:
+        tomllib = None
 
 NON_PACKAGE_DIRS = {"tests", "test", "docs", "examples", "scripts", "benchmarks", "build", "dist"}
 DOCS_SKIP = {"index.md", "changelog.md", "tags.md", "glossary.md"}
@@ -66,15 +69,18 @@ class ManifestError(RuntimeError):
 # --------------------------------------------------------------------------- #
 
 
+def read_toml(path: Path) -> dict:
+    if tomllib is None:
+        raise ManifestError(
+            f"cannot parse {path.name}: needs Python >= 3.11 or the tomli package "
+            f"(this is Python {sys.version.split()[0]}); rerun with the project's interpreter"
+        )
+    return tomllib.loads(path.read_text())
+
+
 def read_pyproject(root: Path) -> dict:
     path = root / "pyproject.toml"
-    if not path.exists():
-        return {}
-    if tomllib is None:
-        text = path.read_text()
-        name = re.search(r'^name\s*=\s*"([^"]+)"', text, re.M)
-        return {"project": {"name": name.group(1)}} if name else {}
-    return tomllib.loads(path.read_text())
+    return read_toml(path) if path.exists() else {}
 
 
 def resolve_package(root: Path, package: str | None, source_root: str | None) -> tuple[str, Path]:
@@ -137,7 +143,7 @@ def docs_config(root: Path) -> tuple[str, Path | None, Path]:
         m = re.search(r"^docs_dir:\s*['\"]?([^'\"\s]+)", text, re.M)
         return "mkdocs", root / "mkdocs.yml", root / (m.group(1) if m else "docs")
     if (root / "zensical.toml").exists():
-        data = tomllib.loads((root / "zensical.toml").read_text()) if tomllib else {}
+        data = read_toml(root / "zensical.toml")
         return "zensical", root / "zensical.toml", root / data.get("project", {}).get("docs_dir", "docs")
     if (root / "docs" / "conf.py").exists():
         return "sphinx", root / "docs" / "conf.py", root / "docs"
