@@ -41,5 +41,8 @@ are package-independent:
 - Project facts the script cannot detect (data contract, layering rules, check-suite
   conventions) go in the project's `.claude/qa-profile.md`. `/qa --init-profile`
   drafts it from the project's `CLAUDE.md` and docs.
+- Names are reviewed against the hub's Naming conventions, a scikit-learn-inspired
+  default (verb + object names clear on their own, one verb per meaning, one prefix
+  per kind of judgement). A project overrides them in the profile's Naming section.
 
 A project that keeps its own `.claude/commands/qa*.md` shadows the global copies.

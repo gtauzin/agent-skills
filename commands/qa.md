@@ -69,6 +69,10 @@ between methods). Violations and false statements about them are severity high.
 ## Conventions
 Where the project states conventions beyond the convention files (explanation pages, skills).
 
+## Naming
+Deviations from the hub's default Naming conventions, and where the project states its own (for
+example a table of judgement kinds and their prefixes). `(none)` means the defaults apply as written.
+
 ## Deterministic gates
 Gates the `profile` manifest cannot see (custom scripts, framework checks). Their rules are excluded.
 
@@ -97,7 +101,7 @@ Per dimension: project-specific categories with a one-line charter and a severit
 
 ## Ground rules (every agent, every phase)
 
-**Exclusion rule.** Never report findings that the project's deterministic gates already enforce or could enforce as a rule. The gates are what the `profile` manifest lists under `GATES` (pyproject tool sections, pre-commit hooks, just recipes, CI workflows) plus the profile's Deterministic gates section: typically formatting, import order, line length, naming style, type errors, markdown style, docstring existence (when interrogate or an equivalent runs), built-site link breakage, doctest and notebook execution. If a recurring style concern genuinely matters, file ONE `design` finding proposing the corresponding lint rule, and nothing else. The same routing applies to complexity patterns a currently unselected lint rule could own (e.g. ruff C901): one `design` finding proposing the rule, never per-instance findings. A pattern covered by a rule the lint config deliberately ignores is a settled decision; a `design` finding may propose revisiting it only by arguing against the recorded ignore reason.
+**Exclusion rule.** Never report findings that the project's deterministic gates already enforce or could enforce as a rule. The gates are what the `profile` manifest lists under `GATES` (pyproject tool sections, pre-commit hooks, just recipes, CI workflows) plus the profile's Deterministic gates section: typically formatting, import order, line length, naming case (for example ruff `N`, when it is enabled), type errors, markdown style, docstring existence (when interrogate or an equivalent runs), built-site link breakage, doctest and notebook execution. What a name means is not a gate: whether a name is clear on its own, and whether its verb or prefix matches what the code does, is reviewed under the `naming` categories (see Naming conventions). If a recurring style concern genuinely matters, file ONE `design` finding proposing the corresponding lint rule, and nothing else. The same routing applies to complexity patterns a currently unselected lint rule could own (e.g. ruff C901): one `design` finding proposing the rule, never per-instance findings. A pattern covered by a rule the lint config deliberately ignores is a settled decision; a `design` finding may propose revisiting it only by arguing against the recorded ignore reason.
 
 **Simplicity rule.** Every finding's `suggestion`, in every category, proposes the simplest remedy that resolves the claim, preferring deletion over addition. Simplification categories (each spoke marks its own with "simplification category" in its charter) additionally require a named concrete replacement and a countable reduction (parameters, branches, layers, indirections, exported names, or net lines); "this could be simpler" with nothing named is not a finding.
 
@@ -126,6 +130,49 @@ Spokes running simplification categories pass the accepted entries (file, slug, 
 
 The `id` derives from the file path and a 3-6 word normalized slug of the claim, never from prose wording, so it stays stable across runs. `category` comes from the spoke's charter or the profile's Extra categories and drives report counts.
 
+## Naming conventions
+
+The default style is modelled on scikit-learn: a name says what the code does, clearly enough to read on its own, even when that makes it longer. `train_test_split`, `check_is_fitted`, `make_pipeline`, `is_classifier` and `load_iris` are the reference. The profile's Naming section overrides any rule below; a rule the project explicitly rejects is never reported.
+
+**Every name is clear on its own.** Read the name as if it were imported alone (`from module import name`), and as it appears inside its own module. A name that only makes sense with the module in front (`registry.entry`, `store.root`, `store.labels`) is unclear. Private helpers follow the same rules as public names.
+
+**Functions start with a verb, then the object.** `get_registry_entry`, not `entry` or `registry_entry`. A function that returns a boolean may instead be a question: `is_<condition>`, `has_<object>`, or `<object>_exists`. Classes and constants are nouns.
+
+**One verb per meaning, used the same way across the package:**
+
+| Verb | Meaning |
+| --- | --- |
+| `load_` | Read configuration or a file and return a validated object |
+| `get_` | Look up and return one item; raise when it is missing |
+| `get_<object>_or_none` | The same lookup, returning `None` when the item is missing |
+| `list_` | Return several items |
+| `make_` | Build a small value (a name, a payload) |
+| `derive_`, `compute_` | Work a value out from other data |
+| `read_`, `write_`, `update_`, `delete_` | File or storage operations |
+| `run_<command>_command` | The function behind one CLI command; it prints and returns an exit code |
+
+**A judgement's prefix names its kind.** A judgement is a function whose job is to decide whether something is acceptable, and to refuse when it is not. What it reads decides when it can run and what its failure means, so each kind has one prefix:
+
+| Kind | Reads | Runs | Prefix |
+| --- | --- | --- | --- |
+| Validation | One object's own fields, or one raw value before it is used | When the object is built or the value first used | `validate_` (or a validator of the modelling library, such as pydantic) |
+| Check | Several already-valid configuration objects together | When configuration is loaded | `check_` |
+| Verification | State outside the configuration: the clock, the local disk, a database, a remote service | Just before a command acts | `verify_` |
+| Gate | Data in flight inside a running pipeline | Inside the pipeline step | `require_` (precondition) or `refuse_` (outcome) |
+| Guard | The repository itself | In CI | A test |
+
+A function that observes and carries on is not a judgement: `warn_`. When the project documents its own table of judgement kinds (the profile's Naming section says where), that table replaces this one.
+
+**A lookup is not a judgement.** A function whose purpose is to return an item, and which raises only because the item is missing, uses `get_`, never a judgement prefix (`get_registry_entry`, not `require_entry`).
+
+**A judgement that returns what it judged keeps its prefix.** scikit-learn's `check_array` checks an array and returns it; in the same way, `verify_registry_entry` may return the entry it verified. A function that runs judgements but returns new data (not the thing it judged) is named for what it returns.
+
+**The same concept uses the same parameter name everywhere**, across functions as well as classes, as scikit-learn uses `X`, `y` and `random_state`.
+
+**Module names say what the module holds**, in literal words: `freeze_history`, not `ledger`; `local_store`, not `store`. A generic name alone (`plan`, `local`, `helpers`) is unclear unless the package holds one thing of that kind.
+
+**Severity of naming findings.** A name that states something false (a `get_` that returns nothing, a `delete_` that does not delete) is `high`. A judgement prefix that names the wrong kind, a verb used against its meaning above, or the same concept under two parameter names is `medium` (inconsistency with a stated convention). A name that is unclear on its own or not verb-first is `low`. Every naming suggestion states the new name; for an exported name it also says the rename breaks callers outside the package.
+
 ## Phase 0: Shared baseline (before any review)
 
 Run from the project root:
@@ -137,7 +184,7 @@ cat .claude/qa-profile.md 2>/dev/null || echo "(no .claude/qa-profile.md; using 
 cat reviews/accepted.md 2>/dev/null || echo "(no reviews/accepted.md yet)"
 ```
 
-`profile` prints `PACKAGE` (import name and source root), `SUBPACKAGES` with line counts, `GATES`, `DOCS`, `CONVENTIONS`, `SKILLS`, and `REVIEWS` (accepted count, latest reports with their dimensions and SHAs). If it picks the wrong package, or the profile names one, pass `--package NAME` or `--source-root PATH` to every later manifest call. Read the convention files it lists and extract the data contract, conventions, and layering rules the profile does not already state; every reviewer prompt receives them as `PROJECT_CONTRACT`. Keep the accepted-finding IDs and justifications for Phase 4 and for simplification-category reviewer inputs, along with the most recent prior report. Then run each selected spoke's manifests (Phase 0 sections in the spokes). If a manifest command fails, stop and report; never substitute agent guesses for manifest data.
+`profile` prints `PACKAGE` (import name and source root), `SUBPACKAGES` with line counts, `GATES`, `DOCS`, `CONVENTIONS`, `SKILLS`, and `REVIEWS` (accepted count, latest reports with their dimensions and SHAs). If it picks the wrong package, or the profile names one, pass `--package NAME` or `--source-root PATH` to every later manifest call. Read the convention files it lists and extract the data contract, conventions, and layering rules the profile does not already state; every reviewer prompt receives them as `PROJECT_CONTRACT`. The source and design reviewers also receive the Naming conventions section of this hub, with the profile's Naming section applied on top, as `NAMING_CONVENTIONS`. Keep the accepted-finding IDs and justifications for Phase 4 and for simplification-category reviewer inputs, along with the most recent prior report. Then run each selected spoke's manifests (Phase 0 sections in the spokes). If a manifest command fails, stop and report; never substitute agent guesses for manifest data.
 
 **Changed-files manifest (`CHANGED_FILES`), for incremental per-file dimensions.** Per dimension, the base is the latest `reviews/*-qa.md` whose `Scope:` line covers that dimension over a path containing the requested one, and whose `Commit:` SHA resolves:
 

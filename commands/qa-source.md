@@ -1,5 +1,5 @@
 ---
-description: "QA spoke: source quality review (dead code, library idioms, error handling, contradictions, duplication, needless complexity, comment altitude)."
+description: "QA spoke: source quality review (dead code, library idioms, error handling, contradictions, duplication, naming, needless complexity, comment altitude)."
 ---
 
 # /qa-source
@@ -12,7 +12,7 @@ description: "QA spoke: source quality review (dead code, library idioms, error 
 python3 ~/.claude/commands/qa/scripts/qa_manifest.py units source [--path <dir>] [--changed -]
 ```
 
-Units are the `UNIT` lines: modules of one subpackage under the source root, at most ~5 modules and ~1800 lines per reviewer. Each reviewer receives the module files, `PROJECT_CONTRACT`, the profile's Library idioms section, and this charter.
+Units are the `UNIT` lines: modules of one subpackage under the source root, at most ~5 modules and ~1800 lines per reviewer. Each reviewer receives the module files, `PROJECT_CONTRACT`, `NAMING_CONVENTIONS`, the profile's Library idioms section, and this charter.
 
 **Incremental-eligible.** This is a per-file dimension: on an incremental run, pipe the chassis `CHANGED_FILES` into `units --changed -` so units cover only changed modules, and carry prior-report findings on unchanged modules forward as KNOWN.
 
@@ -22,6 +22,7 @@ Units are the `UNIT` lines: modules of one subpackage under the source root, at 
 You are a source-quality reviewer for the {package} package (chassis rules apply; return findings in the hub JSON schema).
 UNIT: {unit} | FILES: {files}
 PROJECT_CONTRACT: {data contract and conventions} | LIBRARY_IDIOMS: {profile section, or "none stated"}
+NAMING_CONVENTIONS: {the hub's Naming conventions section, with the profile's Naming section applied}
 UTILITY_MODULES: {subpackages the profile's Layering section names as shared primitives, else utils-like subpackages from the profile manifest}
 
 Work through every file and produce findings per category:
@@ -47,6 +48,16 @@ Work through every file and produce findings per category:
 
 ### duplication
 - Logic re-implemented locally that a UTILITY_MODULES function already provides (cite the function).
+
+### naming
+- Judge every function, class, constant and module name the unit defines, public or private, against NAMING_CONVENTIONS.
+- Name clear only with its module in front, or unclear on its own (a bare noun such as `entry`, `root`, `labels`).
+- Function not starting with a verb, where it is not a boolean question (`is_`, `has_`, `<object>_exists`).
+- Verb used against its meaning: a `get_` that does not return its item or returns `None` silently, a `load_` that reads nothing, a `list_` returning one item.
+- Judgement prefix naming the wrong kind. Read the body to decide the kind: what it reads (one object, several configuration objects, outside state such as the clock, disk, database or a remote service, data inside a pipeline step) and whether it refuses. A `check_` that reads outside state is a `verify_`; a `require_` outside a pipeline gate is misnamed; a lookup named as a judgement is a `get_`.
+- Command entry function not named `run_<command>_command`; module file name that is a metaphor or a bare generic word.
+- One finding per FILE: evidence lists every flagged name with its line; the suggestion gives the new name for each (`old -> new`) and says which ones are exported, because renaming those breaks callers outside the package.
+- Skip names the profile's Naming section exempts, and names a framework imposes (hook methods, test functions, dunder methods, entry points a plugin system looks up by name).
 
 ### needless-complexity (simplification category)
 - Indirection with a single caller: a private helper wrapping one expression, a class where a function suffices.

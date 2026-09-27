@@ -1,5 +1,5 @@
 ---
-description: "QA spoke: design review (dependency direction, shared-base leakage, composition violations, dead modules, needless abstraction, cross-family consistency)."
+description: "QA spoke: design review (dependency direction, shared-base leakage, composition violations, dead modules, needless abstraction, cross-family and naming consistency)."
 ---
 
 # /qa-design
@@ -57,12 +57,13 @@ Rules: cite file:line; at most 6 findings per unit, highest value first.
 
 ## Cross-family consistency prompts (global, one agent each)
 
-Families are the groups the profile's Families section names; otherwise, classes sharing an in-package base in `SURFACE_MANIFEST`. When the package has fewer than two families of two or more classes, skip these prompts and say so in the report. Each prompt receives the family list, `SURFACE_MANIFEST`, and `IMPORT_GRAPH`. Categories: `naming-consistency`, `state-attr-convention`, `error-style`, `metadata-consistency`.
+Families are the groups the profile's Families section names; otherwise, classes sharing an in-package base in `SURFACE_MANIFEST`. When the package has fewer than two families of two or more classes, skip prompts 1 to 4 and say so in the report; prompt 5 always runs. Each prompt receives the family list, `SURFACE_MANIFEST`, and `IMPORT_GRAPH`; prompt 5 also receives `NAMING_CONVENTIONS`. Categories: `naming-consistency`, `state-attr-convention`, `error-style`, `metadata-consistency`, `verb-consistency`.
 
 1. Parameter naming: the same concept must use the same name across families; list divergences with all class names.
 2. Learned or cached state: follow the convention the project states (for example, scikit-learn's trailing underscore for attributes set in `fit`); flag exceptions. Skip when no convention is stated or evident from a majority.
 3. Error style: the same failure mode (missing input, invalid configuration, use before initialization or fitting) must raise the same exception type with the same message shape across families.
 4. Class metadata: tags, registries, class attributes, or decorators declaring capabilities are applied consistently for equivalent capabilities.
+5. Verbs, prefixes and parameters across the package: using the functions in `SYMBOLS` and `UNEXPORTED_PUBLIC`, and reading bodies where the name alone cannot settle it, flag a verb or judgement prefix used with two meanings in different modules (a `get_` that raises in one module and returns `None` in another; a `check_` that reads configuration in one module and a remote service in another), and the same concept passed under two parameter names across functions. One finding per verb or concept, listing every divergent site; the suggestion names the one form to keep, per `NAMING_CONVENTIONS`. Per-name issues inside one module belong to `/qa-source` (`naming`), not here.
 
 ## Aggregation
 
